@@ -41,12 +41,12 @@ function Games() {
   const [editando, setEditando] = useState(false);
   const [indiceEditando, setIndiceEditando] = useState(null);
 
-  useEffect(() => {
-    if (indiceEditando !== null && editando) {
-      setNome(games[indiceEditando].nome);
-      setUrlImagem(games[indiceEditando].urlImagem);
-    }
-  }, [indiceEditando]);
+  // useEffect(() => {
+  //   if (indiceEditando !== null && editando) {
+  //     setNome(games[indiceEditando].nome);
+  //     setUrlImagem(games[indiceEditando].urlImagem);
+  //   }
+  // }, [indiceEditando]);
 
   const handleNameChange = (evento) => {
     setNome(evento.target.value);
@@ -58,33 +58,37 @@ function Games() {
 
   const handleSubmit = (evento) => {
     evento.preventDefault();
-    if (editando) {
-      const gameAtualizado = games.map((game, indice) => {
-        if (indiceEditando === indice) {
-          game.id = indice;
-          game.nome = nome;
-          game.urlImagem = urlImagem;
-        }
+    if (nome && urlImagem) {
+      if (editando) {
+        const gameAtualizado = games.map((game, indice) => {
+          if (indiceEditando === indice) {
+            game.id = indice;
+            game.nome = nome;
+            game.urlImagem = urlImagem;
+          }
 
-        return game;
-      });
+          return game;
+        });
 
-      setGames(gameAtualizado);
+        setGames(gameAtualizado);
 
-      setEditando(false);
+        setEditando(false);
 
-      setIndiceEditando(null);
-    } else {
-      setGames([
-        ...games,
-        {
-          id: games.length + 1,
-          nome: nome,
-          urlImagem: urlImagem,
-        },
-      ]);
-      setNome("");
-      setUrlImagem("");
+        setIndiceEditando(null);
+        setNome("");
+        setUrlImagem("");
+      } else {
+        setGames([
+          ...games,
+          {
+            id: games.length + 1,
+            nome: nome,
+            urlImagem: urlImagem,
+          },
+        ]);
+        setNome("");
+        setUrlImagem("");
+      }
     }
   };
 
@@ -119,6 +123,8 @@ function Games() {
             <button
               type="button"
               onClick={() => {
+                setNome(games.nome);
+                setUrlImagem(games.urlImagem);
                 setEditando(true);
                 setIndiceEditando(indice);
               }}
