@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 export { Video, Mapa, Games };
 
@@ -40,13 +40,6 @@ function Games() {
   const [urlImagem, setUrlImagem] = useState("");
   const [editando, setEditando] = useState(false);
   const [indiceEditando, setIndiceEditando] = useState(null);
-
-  // useEffect(() => {
-  //   if (indiceEditando !== null && editando) {
-  //     setNome(games[indiceEditando].nome);
-  //     setUrlImagem(games[indiceEditando].urlImagem);
-  //   }
-  // }, [indiceEditando]);
 
   const handleNameChange = (evento) => {
     setNome(evento.target.value);
