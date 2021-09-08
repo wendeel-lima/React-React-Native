@@ -2,8 +2,8 @@ const express = require("express");
 const Tarefa = require("../models/tarefa.model");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  Tarefa.find({})
+router.get("/", async (req, res) => {
+  await Tarefa.find({})
     .then((tarefa) => {
       res.send(tarefa);
     })
@@ -12,8 +12,8 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/byId/:id", (req, res) => {
-  Tarefa.findById({ _id: req.params.id })
+router.get("/byId/:id", async (req, res) => {
+  await Tarefa.findById({ _id: req.params.id })
     .then((tarefa) => {
       res.send(tarefa);
     })
@@ -22,8 +22,8 @@ router.get("/byId/:id", (req, res) => {
     });
 });
 
-router.get("/byName/:titulo", (req, res) => {
-  Tarefa.find({ titulo: req.params.titulo })
+router.get("/byName/:titulo", async (req, res) => {
+  await Tarefa.find({ titulo: req.params.titulo })
     .then((tarefa) => {
       res.send(tarefa);
     })
@@ -32,8 +32,8 @@ router.get("/byName/:titulo", (req, res) => {
     });
 });
 
-router.post("/add", (req, res) => {
-  Tarefa.create(req.body)
+router.post("/add", async (req, res) => {
+  await Tarefa.create(req.body)
     .then(() => {
       res.status(200).send("Tarefa adicionada com sucesso");
     })
@@ -43,8 +43,8 @@ router.post("/add", (req, res) => {
     });
 });
 
-router.put("/update/id", (req, res) => {
-  Tarefa.updateOne({ _id: req.params.id }, req.body)
+router.put("/update/id", async (req, res) => {
+  await Tarefa.updateOne({ _id: req.params.id }, req.body)
     .then(() => {
       res.status(200).send("Tarefa atualizada com sucesso");
     })
@@ -54,10 +54,10 @@ router.put("/update/id", (req, res) => {
     });
 });
 
-router.delete("/delete", (req, res) => {
-  Tarefa.updateOne({ _id: req.params.id })
+router.delete("/delete", async (req, res) => {
+  await Tarefa.updateOne({ _id: req.params.id })
     .then(() => {
-      res.status(200).send("Tarefa atualizada com sucesso");
+      res.status(200).send("Tarefa deletada com sucesso");
     })
     .catch((err) => {
       res.status(400).send("Algo errado com a tarefa, tente novamente");
